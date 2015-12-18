@@ -8,22 +8,116 @@
 
 /* Begin PBXBuildFile section */
 		FAC72D391C21EE4700F4F054 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D381C21EE4700F4F054 /* AppDelegate.swift */; };
-		FAC72D3B1C21EE4700F4F054 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D3A1C21EE4700F4F054 /* FirstViewController.swift */; };
-		FAC72D3D1C21EE4700F4F054 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D3C1C21EE4700F4F054 /* SecondViewController.swift */; };
 		FAC72D401C21EE4700F4F054 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC72D3E1C21EE4700F4F054 /* Main.storyboard */; };
 		FAC72D421C21EE4700F4F054 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAC72D411C21EE4700F4F054 /* Assets.xcassets */; };
 		FAC72D451C21EE4800F4F054 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC72D431C21EE4800F4F054 /* LaunchScreen.storyboard */; };
+		FAC72D561C21F71B00F4F054 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D551C21F71B00F4F054 /* PhotoInfo.swift */; };
+		FAC72D581C21F73F00F4F054 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D571C21F73F00F4F054 /* Comment.swift */; };
+		FAC72D5A1C21F79E00F4F054 /* PopularPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D591C21F79E00F4F054 /* PopularPhotoCollectionViewController.swift */; };
+		FAC72D5C1C21F7B700F4F054 /* DownloadedPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D5B1C21F7B700F4F054 /* DownloadedPhotoCollectionViewController.swift */; };
+		FAC72D5E1C21F7DE00F4F054 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D5D1C21F7DE00F4F054 /* PhotoDetailViewController.swift */; };
+		FAC72D601C21F80400F4F054 /* PhotoCommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D5F1C21F80400F4F054 /* PhotoCommentsTableViewController.swift */; };
+		FAC72D621C21F89B00F4F054 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D611C21F89B00F4F054 /* PhotoViewController.swift */; };
+		FAC72D641C21F98600F4F054 /* PopularPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D631C21F98600F4F054 /* PopularPhotoCollectionViewCell.swift */; };
+		FAC72D661C21F99900F4F054 /* DownloadedPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D651C21F99900F4F054 /* DownloadedPhotoCollectionViewCell.swift */; };
+		FAC72D681C21F9B600F4F054 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D671C21F9B600F4F054 /* CommentTableViewCell.swift */; };
+		FAC72D6A1C21FA4200F4F054 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D691C21FA4200F4F054 /* Constants.swift */; };
+		FAC72D831C2200C600F4F054 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC72D761C22005000F4F054 /* Alamofire.framework */; };
+		FAC72D841C2200C600F4F054 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAC72D761C22005000F4F054 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FAC72D751C22005000F4F054 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
+		FAC72D771C22005000F4F054 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS Tests";
+		};
+		FAC72D791C22005000F4F054 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
+			remoteInfo = "Alamofire OSX";
+		};
+		FAC72D7B1C22005000F4F054 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
+			remoteInfo = "Alamofire OSX Tests";
+		};
+		FAC72D7D1C22005000F4F054 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CF626EF1BA7CB3E0011A099;
+			remoteInfo = "Alamofire tvOS";
+		};
+		FAC72D7F1C22005000F4F054 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CF626F81BA7CB3E0011A099;
+			remoteInfo = "Alamofire tvOS Tests";
+		};
+		FAC72D811C22005000F4F054 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E4202FE01B667AA100C997FB;
+			remoteInfo = "Alamofire watchOS";
+		};
+		FAC72D851C2200C600F4F054 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FAC72D871C2200C700F4F054 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FAC72D841C2200C600F4F054 /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FAC72D351C21EE4700F4F054 /* Photomania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photomania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC72D381C21EE4700F4F054 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FAC72D3A1C21EE4700F4F054 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		FAC72D3C1C21EE4700F4F054 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		FAC72D3F1C21EE4700F4F054 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FAC72D411C21EE4700F4F054 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAC72D441C21EE4800F4F054 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAC72D461C21EE4800F4F054 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAC72D551C21F71B00F4F054 /* PhotoInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
+		FAC72D571C21F73F00F4F054 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		FAC72D591C21F79E00F4F054 /* PopularPhotoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularPhotoCollectionViewController.swift; sourceTree = "<group>"; };
+		FAC72D5B1C21F7B700F4F054 /* DownloadedPhotoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedPhotoCollectionViewController.swift; sourceTree = "<group>"; };
+		FAC72D5D1C21F7DE00F4F054 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
+		FAC72D5F1C21F80400F4F054 /* PhotoCommentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCommentsTableViewController.swift; sourceTree = "<group>"; };
+		FAC72D611C21F89B00F4F054 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		FAC72D631C21F98600F4F054 /* PopularPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAC72D651C21F99900F4F054 /* DownloadedPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAC72D671C21F9B600F4F054 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		FAC72D691C21FA4200F4F054 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-V313/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC72D831C2200C600F4F054 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +135,7 @@
 		FAC72D2C1C21EE4700F4F054 = {
 			isa = PBXGroup;
 			children = (
+				FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */,
 				FAC72D371C21EE4700F4F054 /* Photomania */,
 				FAC72D361C21EE4700F4F054 /* Products */,
 			);
@@ -56,15 +152,62 @@
 		FAC72D371C21EE4700F4F054 /* Photomania */ = {
 			isa = PBXGroup;
 			children = (
+				FAC72D541C21F6E300F4F054 /* Controllers */,
+				FAC72D531C21F6DE00F4F054 /* Views */,
+				FAC72D521C21F6D600F4F054 /* Models */,
 				FAC72D381C21EE4700F4F054 /* AppDelegate.swift */,
-				FAC72D3A1C21EE4700F4F054 /* FirstViewController.swift */,
-				FAC72D3C1C21EE4700F4F054 /* SecondViewController.swift */,
 				FAC72D3E1C21EE4700F4F054 /* Main.storyboard */,
 				FAC72D411C21EE4700F4F054 /* Assets.xcassets */,
 				FAC72D431C21EE4800F4F054 /* LaunchScreen.storyboard */,
 				FAC72D461C21EE4800F4F054 /* Info.plist */,
 			);
 			path = Photomania;
+			sourceTree = "<group>";
+		};
+		FAC72D521C21F6D600F4F054 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FAC72D551C21F71B00F4F054 /* PhotoInfo.swift */,
+				FAC72D571C21F73F00F4F054 /* Comment.swift */,
+				FAC72D691C21FA4200F4F054 /* Constants.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		FAC72D531C21F6DE00F4F054 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FAC72D631C21F98600F4F054 /* PopularPhotoCollectionViewCell.swift */,
+				FAC72D651C21F99900F4F054 /* DownloadedPhotoCollectionViewCell.swift */,
+				FAC72D671C21F9B600F4F054 /* CommentTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		FAC72D541C21F6E300F4F054 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FAC72D591C21F79E00F4F054 /* PopularPhotoCollectionViewController.swift */,
+				FAC72D5B1C21F7B700F4F054 /* DownloadedPhotoCollectionViewController.swift */,
+				FAC72D611C21F89B00F4F054 /* PhotoViewController.swift */,
+				FAC72D5D1C21F7DE00F4F054 /* PhotoDetailViewController.swift */,
+				FAC72D5F1C21F80400F4F054 /* PhotoCommentsTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		FAC72D6C1C22004E00F4F054 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAC72D761C22005000F4F054 /* Alamofire.framework */,
+				FAC72D781C22005000F4F054 /* Alamofire iOS Tests.xctest */,
+				FAC72D7A1C22005000F4F054 /* Alamofire.framework */,
+				FAC72D7C1C22005000F4F054 /* Alamofire OSX Tests.xctest */,
+				FAC72D7E1C22005000F4F054 /* Alamofire.framework */,
+				FAC72D801C22005000F4F054 /* Alamofire tvOS Tests.xctest */,
+				FAC72D821C22005000F4F054 /* Alamofire.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,10 +220,12 @@
 				FAC72D311C21EE4700F4F054 /* Sources */,
 				FAC72D321C21EE4700F4F054 /* Frameworks */,
 				FAC72D331C21EE4700F4F054 /* Resources */,
+				FAC72D871C2200C700F4F054 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FAC72D861C2200C600F4F054 /* PBXTargetDependency */,
 			);
 			name = Photomania;
 			productName = Photomania;
@@ -113,12 +258,70 @@
 			mainGroup = FAC72D2C1C21EE4700F4F054;
 			productRefGroup = FAC72D361C21EE4700F4F054 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FAC72D6C1C22004E00F4F054 /* Products */;
+					ProjectRef = FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				FAC72D341C21EE4700F4F054 /* Photomania */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FAC72D761C22005000F4F054 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = FAC72D751C22005000F4F054 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAC72D781C22005000F4F054 /* Alamofire iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire iOS Tests.xctest";
+			remoteRef = FAC72D771C22005000F4F054 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAC72D7A1C22005000F4F054 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = FAC72D791C22005000F4F054 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAC72D7C1C22005000F4F054 /* Alamofire OSX Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire OSX Tests.xctest";
+			remoteRef = FAC72D7B1C22005000F4F054 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAC72D7E1C22005000F4F054 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = FAC72D7D1C22005000F4F054 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAC72D801C22005000F4F054 /* Alamofire tvOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire tvOS Tests.xctest";
+			remoteRef = FAC72D7F1C22005000F4F054 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAC72D821C22005000F4F054 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = FAC72D811C22005000F4F054 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FAC72D331C21EE4700F4F054 /* Resources */ = {
@@ -138,13 +341,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAC72D3D1C21EE4700F4F054 /* SecondViewController.swift in Sources */,
+				FAC72D681C21F9B600F4F054 /* CommentTableViewCell.swift in Sources */,
+				FAC72D661C21F99900F4F054 /* DownloadedPhotoCollectionViewCell.swift in Sources */,
+				FAC72D5E1C21F7DE00F4F054 /* PhotoDetailViewController.swift in Sources */,
+				FAC72D561C21F71B00F4F054 /* PhotoInfo.swift in Sources */,
+				FAC72D5A1C21F79E00F4F054 /* PopularPhotoCollectionViewController.swift in Sources */,
+				FAC72D581C21F73F00F4F054 /* Comment.swift in Sources */,
+				FAC72D5C1C21F7B700F4F054 /* DownloadedPhotoCollectionViewController.swift in Sources */,
+				FAC72D621C21F89B00F4F054 /* PhotoViewController.swift in Sources */,
+				FAC72D601C21F80400F4F054 /* PhotoCommentsTableViewController.swift in Sources */,
+				FAC72D641C21F98600F4F054 /* PopularPhotoCollectionViewCell.swift in Sources */,
 				FAC72D391C21EE4700F4F054 /* AppDelegate.swift in Sources */,
-				FAC72D3B1C21EE4700F4F054 /* FirstViewController.swift in Sources */,
+				FAC72D6A1C21FA4200F4F054 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FAC72D861C2200C600F4F054 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Alamofire iOS";
+			targetProxy = FAC72D851C2200C600F4F054 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FAC72D3E1C21EE4700F4F054 /* Main.storyboard */ = {
@@ -253,6 +473,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Photomania/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.happyguy.Photomania;
@@ -264,6 +485,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Photomania/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.happyguy.Photomania;
@@ -290,6 +512,7 @@
 				FAC72D4B1C21EE4800F4F054 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
