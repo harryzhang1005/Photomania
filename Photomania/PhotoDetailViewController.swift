@@ -46,9 +46,9 @@ class PhotoDetailViewController: UIViewController
     func loadData()
     {
         if let pInfo = photoInfo {
-            highestLabel.text = "\(pInfo.highest!)"
-            pulseLabel.text = "\(pInfo.pulse!)"
-            viewsLabel.text = "\(pInfo.views!)"
+            highestLabel.text = "\(pInfo.highest ?? 0)"
+            pulseLabel.text = "\(pInfo.pulse ?? 0)"
+            viewsLabel.text = "\(pInfo.views ?? 0)"
             descLabel.text = pInfo.desc
         }
         

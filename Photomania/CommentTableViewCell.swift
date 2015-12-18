@@ -35,6 +35,10 @@ class CommentTableViewCell: UITableViewCell
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        imgView.layer.cornerRadius = 5.0
+        imgView.layer.masksToBounds = true
+        commentBodyLabel.numberOfLines = 0
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

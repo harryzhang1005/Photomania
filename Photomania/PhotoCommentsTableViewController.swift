@@ -24,8 +24,14 @@ class PhotoCommentsTableViewController: UITableViewController
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        // Auto row height
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 80.0
+        
         let done = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done")
         self.navigationItem.rightBarButtonItem = done
+        
+        title = "Comments"
         
         loadComments()
     }

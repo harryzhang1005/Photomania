@@ -21,6 +21,11 @@ class PopularPhotoCollectionViewController: UICollectionViewController
     // pull-to-refresh
     private var refreshControl = UIRefreshControl() // inherit from UIControl -> UIView
     
+    /* Better performance
+    When you scroll quickly through the photo browser, you’ll notice that you can send cells off the screen whose image requests are still active. In fact, the image request still runs to completion, but the downloaded photo and associated data is just discarded.
+    Additionally, when you return to earlier cells you have to make a network request again for the photo — even though you just downloaded it a moment ago. You can definitely improve on this bandwidth-wasting design!
+    You’ll do this by caching retrieved images so they don’t have to be retrieved numerous times; as well, you’ll cancel any in-progress network requests if the associated cell is dequeued before the request completes.
+    */
     private let imageCache = NSCache()  // for better performance to cache the downloaded photos
 
     override func viewDidLoad() {
