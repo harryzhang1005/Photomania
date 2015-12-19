@@ -13,17 +13,15 @@ class PopularPhotoCollectionViewCell: UICollectionViewCell
 {
     let imageView = UIImageView()
     
-    var request: Alamofire.Request? // Store download image Alamofire request
+    var request: Alamofire.Request? // Store the Alamofire request of downloading image
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         configCell()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configCell()
     }
     
@@ -37,18 +35,17 @@ class PopularPhotoCollectionViewCell: UICollectionViewCell
 }
 
 // Spinner view
-class PopularPhotoCollectionViewLoadingCell: UICollectionReusableView {
+class PopularPhotoCollectionViewLoadingCell: UICollectionReusableView
+{
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         configView()
     }
     
@@ -57,9 +54,5 @@ class PopularPhotoCollectionViewLoadingCell: UICollectionReusableView {
         spinner.startAnimating()
         spinner.center = self.center
         addSubview(spinner)
-        
     }
 }
-
-
-

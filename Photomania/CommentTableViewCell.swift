@@ -15,7 +15,6 @@ class CommentTableViewCell: UITableViewCell
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var commentBodyLabel: UILabel!
 
-    
     func configCell(comment: Comment)
     {
         fullNameLabel.text = comment.userFullname
@@ -25,8 +24,6 @@ class CommentTableViewCell: UITableViewCell
             if resp.result.error == nil {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.imgView.image = resp.result.value
-                    
-                    
                 }
             }
         }
@@ -38,6 +35,7 @@ class CommentTableViewCell: UITableViewCell
         
         imgView.layer.cornerRadius = 5.0
         imgView.layer.masksToBounds = true
+        
         commentBodyLabel.numberOfLines = 0
     }
 

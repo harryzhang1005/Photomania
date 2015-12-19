@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import iAd
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         // Override point for customization after application launch.
         
+        // Set globally bars appearances
         UINavigationBar.appearance().barStyle = UIBarStyle.BlackTranslucent
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         
@@ -30,7 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIButton.appearance().tintColor = UIColor.whiteColor()
         
+        // Prepare to show full screen Ads
+        prepareForFullScreenAds()
+        
         return true
     }
-    
+
+    func prepareForFullScreenAds()
+    {
+        UIViewController.prepareInterstitialAds()
+    }
+
 }

@@ -126,6 +126,8 @@ struct Constant {
     static let DownloadedShowPhotoSegue = "DownloadedShowPhoto"
     
     static let PhotoBrowserFooterView = "PhotoBrowserFooterView"
+    
+    static let ItemLength: CGFloat = 150.0  // not using
 }
 
 struct Five100px {

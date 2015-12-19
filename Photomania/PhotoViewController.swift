@@ -8,22 +8,30 @@
 
 import UIKit
 import Alamofire
+import iAd
 
+// Will show the specified photo
 class PhotoViewController: UIViewController
 {
-    var photoID: Int?
-    var imageURL: NSURL?
+    var photoID: Int?       // What's the photo id, use to download the photo and detail info
+    var imageURL: NSURL?    // use to store the local downloaded photo path
     
-    private let scrollView = UIScrollView()
+    private var canShowInterstitialAd = false   // can show full-screen Ads or not
+    
+    @IBOutlet weak var deletePhotoBarButtonItem: UIBarButtonItem!   // will unwind to delete a photo
+    
+    private let scrollView = UIScrollView() // use to scroll the photo when zoom it in
     private let imageView = UIImageView()
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
     
-    private var photoInfo: PhotoInfo?
+    private var photoInfo: PhotoInfo?   // will get the photo info via photo id
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.interstitialPresentationPolicy = .Automatic // ADInterstitialPresentationPolicy, and `None` by default
+        
         setupView()
         loadPhoto()
     }
@@ -62,11 +70,15 @@ class PhotoViewController: UIViewController
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         scrollView.addSubview(imageView)
         
-        // Double tap gesture
+        // Double tap gesture - to zoom in or out the photo
         let doubleTap = UITapGestureRecognizer(target: self, action: "togglePhotoZoom:")
         doubleTap.numberOfTapsRequired = 2
         doubleTap.numberOfTouchesRequired = 1
         scrollView.addGestureRecognizer(doubleTap)
+        
+        // Hide delete photo bar button item
+        deletePhotoBarButtonItem.enabled = false
+        deletePhotoBarButtonItem.title = nil
     }
     
     func loadPhoto()
@@ -78,19 +90,20 @@ class PhotoViewController: UIViewController
                 {
                     self.photoInfo = response.result.value
                 
-                    // Add bottom toolbar
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.addBottomBar()
+                        self.addBottomBar()     // add bottom toolbar and items
                         self.title = self.photoInfo?.name
                     }
                     
                     Alamofire.request(.GET, self.photoInfo!.url).validate().responseImage({ (response: Response<UIImage, NSError>) -> Void in
                         if response.result.error == nil {
-                            self.imageView.image = response.result.value
-                            self.imageView.frame = self.centerFrameFromImage(response.result.value)
-                            
-                            self.spinner.stopAnimating()
-                            self.centerScrollViewContents()
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.imageView.image = response.result.value
+                                self.imageView.frame = self.centerFrameFromImage(response.result.value)
+                                
+                                self.spinner.stopAnimating()
+                                self.centerScrollViewContents()
+                            }
                         }
                     })
                 }
@@ -99,6 +112,12 @@ class PhotoViewController: UIViewController
         
         if let imgURL = imageURL // image url come from downloaded collection vc
         {
+            showFullScreenAds()
+            
+            // Show delete photo bar button item
+            deletePhotoBarButtonItem.enabled = true
+            deletePhotoBarButtonItem.title = "Delete Photo"
+            
             let image = UIImage(data: NSData(contentsOfURL: imgURL)! )
             self.imageView.image = image
             self.imageView.frame = self.centerFrameFromImage(image)
@@ -171,8 +190,12 @@ class PhotoViewController: UIViewController
     
     func showPhotoDetail()
     {
+        if presentedViewController != nil { // Dismiss Comment or Actions VC if visible
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+        
         let photoDetailVC = storyboard?.instantiateViewControllerWithIdentifier(Constant.PhotoDetailVC) as? PhotoDetailViewController
-        photoDetailVC?.modalPresentationStyle = .OverCurrentContext
+        photoDetailVC?.modalPresentationStyle = .OverCurrentContext     // .OverCurrentContext better than .FullScreen
         photoDetailVC?.modalTransitionStyle = .CoverVertical
         photoDetailVC?.photoInfo = self.photoInfo
         
@@ -181,30 +204,45 @@ class PhotoViewController: UIViewController
     
     func showComment()
     {
+        if presentedViewController != nil { // Dismiss Comment VC if visible
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+        
         let commentTVC = storyboard?.instantiateViewControllerWithIdentifier(Constant.PhotoCommentsTVC) as? PhotoCommentsTableViewController
-        commentTVC?.modalPresentationStyle = .Popover
+        commentTVC?.modalPresentationStyle = .Popover   // .Popover
         commentTVC?.modalTransitionStyle = .CoverVertical
         commentTVC?.photoInfo = self.photoInfo
-        commentTVC?.popoverPresentationController?.delegate = self
+        commentTVC?.popoverPresentationController?.delegate = self      // here is required for iPhone
+        commentTVC?.popoverPresentationController?.barButtonItem = self.toolbarItems![1]
         
         self.presentViewController(commentTVC!, animated: true, completion: nil)
     }
     
     func showActions()
     {
-        let alertController = UIAlertController()
-        alertController.modalPresentationStyle = .Popover
+        if presentedViewController != nil { // Dismiss Comment VC if visible
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        let alertController = UIAlertController(title: "What's your action?", message: nil, preferredStyle: .ActionSheet)
         
         weak var weakSelf = self
         let downloadPhoto = UIAlertAction(title: "Download Photo", style: .Default) { (_) -> Void in
-            // download photo
-            weakSelf?.downloadPhoto()
+            weakSelf?.downloadPhoto()   // download photo
         }
-        
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
         alertController.addAction(downloadPhoto)
         alertController.addAction(cancel)
+        
+        if let ppc = alertController.popoverPresentationController
+        {
+            if photoInfo?.commentsCount > 0 {
+                ppc.barButtonItem = self.toolbarItems![3]
+            } else {
+                ppc.barButtonItem = self.toolbarItems![2]
+            }
+        }
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }
@@ -227,7 +265,6 @@ class PhotoViewController: UIViewController
                 self.view.addSubview(progressView)
                 
                 Alamofire.download(.GET, imageURL, destination: dest).progress(){ _, totalBytesRead, totalBytesExpectedToRead in
-                    
                     dispatch_async(dispatch_get_main_queue()) {
                         progressView.setProgress(Float(totalBytesRead)/Float(totalBytesExpectedToRead), animated: true)
                         if totalBytesRead == totalBytesExpectedToRead {
@@ -235,6 +272,7 @@ class PhotoViewController: UIViewController
                         }
                     }
                 }//Download
+                
             }
         }//responseObject
     }
@@ -277,11 +315,10 @@ class PhotoViewController: UIViewController
     */
     
     // MARK: - Scroll view
+    
     func centerFrameFromImage(image: UIImage?) -> CGRect
     {
-        if image == nil {
-            return CGRectZero
-        }
+        if image == nil { return CGRectZero }
         
         let scaleFactor = scrollView.frame.size.width / image!.size.width
         let newHeight = image!.size.height * scaleFactor
@@ -322,6 +359,18 @@ class PhotoViewController: UIViewController
         self.imageView.frame = self.centerFrameFromImage(self.imageView.image)
         centerScrollViewContents()
     }
+    
+    // MARK: - Ads
+    
+    func showFullScreenAds()
+    {
+        canShowInterstitialAd = self.requestInterstitialAdPresentation()
+        if canShowInterstitialAd { // where user close the Ad, will invoke viewDidAppear
+            print("Can show full-screen Ads right now")
+        } else {
+            print("Can not show full-screen Ads right now")
+        }
+    }
 
 }
 
@@ -339,13 +388,34 @@ extension PhotoViewController: UIScrollViewDelegate
 // ?
 extension PhotoViewController: UIPopoverPresentationControllerDelegate
 {
+//    // not help to fix popover view background color for iPad
+//    func presentationController(presentationController: UIPresentationController, willPresentWithAdaptiveStyle style: UIModalPresentationStyle, transitionCoordinator: UIViewControllerTransitionCoordinator?)
+//    {
+//        guard let commentTVC = presentationController.presentedViewController as? PhotoCommentsTableViewController else { return }
+//        print("something set")
+//        //commentTVC.tableView.contentSize = CGSize(width: 320, height: 680)
+//        commentTVC.tableView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+//        if let ppc = commentTVC.popoverPresentationController {
+//            ppc.backgroundColor = UIColor.blackColor()
+//            print("set ppc bg black")
+//        } else {
+//            print("ppc is nil")
+//        }
+//        
+//        commentTVC.tableView.backgroundColor = UIColor.blackColor()
+//    }
+    
+    // The following two methods will be invoked on iPhone, not on iPad
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle
     {
         return UIModalPresentationStyle.OverCurrentContext
     }
     
+    // When present the comment table view controller need this for iPhone only
+    // The view controller to display in place of the existing presented view controller.
     func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController?
     {
         return UINavigationController(rootViewController: controller.presentedViewController)
     }
+
 }

@@ -14,17 +14,17 @@ class PhotoInfo: NSObject, ResponseObjectSerializable
     let id: Int             // photo id
     let url: String         // photo url
     
-    var name: String?
+    var name: String?       // photo name
     
-    var favoritesCount: Int?
-    var votesCount: Int?
-    var commentsCount: Int?
+    var favoritesCount: Int?    // how many people favorite this photo
+    var votesCount: Int?        // how many people vote for this photo
+    var commentsCount: Int?     // how many comments for this photo
     
-    var highest: Float?
-    var pulse: Float?
-    var views: Int?
-    var camera: String?
-    var desc: String?
+    var highest: Float?     // highest score
+    var pulse: Float?       // pulse score
+    var views: Int?         // how many people view this photo
+    var camera: String?     // what kind of camera is used to taken this photo
+    var desc: String?       // how do you describe this photo
 
     init(id: Int, url: String) {
         self.id = id
@@ -59,4 +59,5 @@ class PhotoInfo: NSObject, ResponseObjectSerializable
     override var hash: Int {
         return (self as PhotoInfo).id
     }
+    
 }

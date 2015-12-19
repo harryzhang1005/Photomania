@@ -9,16 +9,15 @@
 import UIKit
 import Alamofire
 
-
+// Will show the type of popular photos from 500px.com 
 class PopularPhotoCollectionViewController: UICollectionViewController
 {
-    //var photos: [PhotoInfo]?    // Array is not a good choice
     private var photos = NSMutableOrderedSet()  // to ensure photo is unique, each element is PhotoInfo
     
-    private var currentPage = 1
-    private var isLoadingPhotos = false
+    private var currentPage = 1             // current page downloaded from 500px.com
+    private var isLoadingPhotos = false     // is downloading photos or not
     
-    // pull-to-refresh
+    // pull-to-refresh get the latest photos, reload the collection view
     private var refreshControl = UIRefreshControl() // inherit from UIControl -> UIView
     
     /* Better performance
@@ -35,10 +34,7 @@ class PopularPhotoCollectionViewController: UICollectionViewController
         // self.clearsSelectionOnViewWillAppear = false
 
         // Do any additional setup after loading the view.
-        
         setupView()
-        
-        //alamofireConnectionTest()
         loadPhotos()
     }
     
@@ -48,15 +44,19 @@ class PopularPhotoCollectionViewController: UICollectionViewController
         
         // custom flow layout
         let layout = UICollectionViewFlowLayout()
-        let itemWidth = (view.bounds.size.width - 2) / 3
+        
+        // Keep 3 items per row
+        let itemWidth = (view.bounds.size.width - 16) / 3
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
-        layout.minimumInteritemSpacing = 1.0
-        layout.minimumLineSpacing = 1.0
+        layout.minimumInteritemSpacing = 8.0
+        layout.minimumLineSpacing = 8.0
+        
         layout.footerReferenceSize = CGSize(width: collectionView!.bounds.width, height: 100.0)
         self.collectionView?.collectionViewLayout = layout
         
         navigationItem.title = "Featured"
         
+        collectionView?.registerClass(PopularPhotoCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: Constant.PopularPhotoItem)
         collectionView?.registerClass(PopularPhotoCollectionViewLoadingCell.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: Constant.PhotoBrowserFooterView)
         
         refreshControl.tintColor = UIColor.whiteColor()
@@ -71,48 +71,13 @@ class PopularPhotoCollectionViewController: UICollectionViewController
         self.imageCache.removeAllObjects()
     }
     
-    func alamofireConnectionTest()
-    {
-        let url = "https://api.500px.com/v1/photos"
-        
-//        Alamofire.request(.GET, url).response { (request, response, data, error) -> Void in
-//            print(request)
-//            print(response)
-//            print("data is: \(data)")
-//            print("error is: \(error)")
-//        }
-
-        /*
-        SUCCESS: {
-            error = "Consumer key missing.";
-            status = 401;
-        }
-        */
-        Alamofire.request(.GET, url).responseJSON { (response: Response<AnyObject, NSError>) -> Void in
-            print(response)
-        }
-        
-        /*
-        // https://api.500px.com/v1/photos?feature=editors&page=2&consumer_key=YOUR_CONSUMER_KEY_HERE
-        let url = "https://api.500px.com/v1/photos"
-        let consumerKey = "EBin9fMMqiJsbqvaruQbGtaHyg7VtvpZiegCMdbj"
-        
-        Alamofire.request(.GET, url, parameters: ["consumer_key": consumerKey]).responseJSON { (response: Response<AnyObject, NSError>) -> Void in
-            print(response)
-        }
-        */
-    }
-    
     func loadPhotos()
     {
-        if isLoadingPhotos {
-            return
-        }
+        if isLoadingPhotos { return }
         
         isLoadingPhotos = true
         
         Alamofire.request(Five100px.Router.PopularPhotos(currentPage)).responseJSON { response in
-
             if let JSON = response.result.value
             {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
@@ -125,8 +90,6 @@ class PopularPhotoCollectionViewController: UICollectionViewController
                     self.photos.addObjectsFromArray(photoInfos)
                     
                     let indexPaths = (orgPhotoCount ..< self.photos.count).map { NSIndexPath(forItem: $0, inSection: 0) }
-                    
-                    print("photo count: \(self.photos.count)")
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         //self.collectionView?.reloadData()
@@ -184,7 +147,9 @@ class PopularPhotoCollectionViewController: UICollectionViewController
         cell.request = Alamofire.request(.GET, imageURL).validate(contentType: ["image/*"]).responseImage { (response) -> Void in
             if let img = response.result.value {
                 self.imageCache.setObject(img, forKey: (response.request?.URLString)!)
-                cell.imageView.image = img
+                dispatch_async(dispatch_get_main_queue()) {
+                    cell.imageView.image = img
+                }
             } else {
                 // If the cell went off-screen before the image was downloaded, we cancel it and an NSURLErrorDomain(-999: canclled) is returned. This is a normal behavior
             }
@@ -203,35 +168,6 @@ class PopularPhotoCollectionViewController: UICollectionViewController
     {
         return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: Constant.PhotoBrowserFooterView, forIndexPath: indexPath)
     }
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
     
     // MARK: - Scroll view delegate method
     override func scrollViewDidScroll(scrollView: UIScrollView) {

@@ -25,7 +25,7 @@ class DownloadedPhotoCollectionViewCell: UICollectionViewCell
     func configCell()
     {
         imageView.frame = bounds
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .ScaleAspectFit // keep the image aspect
         self.addSubview(imageView)
     }
 }

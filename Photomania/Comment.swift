@@ -13,9 +13,9 @@ import UIKit
 // ResponseObjectSerializable, ResponseCollectionSerializable - these two case can not do in its extension
 final class Comment: NSObject, ResponseObjectSerializable, ResponseCollectionSerializable
 {
-    let userFullname: String
-    let userPictureURL: String
-    let commentBody: String
+    let userFullname: String        // who comment this photo
+    let userPictureURL: String      // this guy's avatar icon URL
+    let commentBody: String         // what's the comment
     
     init(json: AnyObject) {
         self.userFullname = json.valueForKeyPath("user.fullname") as! String
@@ -24,6 +24,7 @@ final class Comment: NSObject, ResponseObjectSerializable, ResponseCollectionSer
     }
 
     // MARK: - ResponseObjectSerializable method
+    
     required init?(response: NSHTTPURLResponse, representation: AnyObject) {
         self.userFullname = representation.valueForKeyPath("user.fullname") as! String
         self.userPictureURL = representation.valueForKeyPath("user.userpic_url") as! String

@@ -9,19 +9,16 @@
 import UIKit
 import Alamofire
 
-
+// Will show the downloaded photos in collection view
 class DownloadedPhotoCollectionViewController: UICollectionViewController
 {
-    private var photoURLs = NSMutableOrderedSet()
+    private var photoURLs = NSMutableOrderedSet()   // store local photo URL paths
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
         setupView()
@@ -34,22 +31,31 @@ class DownloadedPhotoCollectionViewController: UICollectionViewController
     
     func setupView()
     {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.itemSize = CGSize(width: view.bounds.size.width, height: 200.0)
-//        layout.minimumLineSpacing = 10.0
-//        collectionView?.collectionViewLayout = layout
+        let layout = UICollectionViewFlowLayout()
+        
+        // Keep 2 items per row
+        let itemWidth = (view.bounds.size.width - 8) / 2
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        layout.minimumInteritemSpacing = 8.0
+        layout.minimumLineSpacing = 8.0
+        
+        collectionView?.collectionViewLayout = layout
+        
+        // Register cell classes
+        self.collectionView!.registerClass(DownloadedPhotoCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: Constant.DownloadedPhotoItem)
         
         navigationItem.title = "Downloads"
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
         loadPhotos()
     }
     
     func loadPhotos()
     {
+        self.photoURLs.removeAllObjects()   // first clean up
+        
         // Step-1: find the directory
         let dirURLs = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         let dirURL = dirURLs[0]
@@ -74,6 +80,27 @@ class DownloadedPhotoCollectionViewController: UICollectionViewController
             (segue.destinationViewController as! PhotoViewController).imageURL = sender as? NSURL
         }
     }
+    
+    // Delete a photo using the unwind segue
+    @IBAction func backToDownloadsCollectionVC(unwindSegue: UIStoryboardSegue)
+    {
+        let deletedImageURL = (unwindSegue.sourceViewController as! PhotoViewController).imageURL
+        if let imgURL = deletedImageURL
+        {
+            //print("will delete this photo: \(imgURL.path!)")
+            if NSFileManager.defaultManager().fileExistsAtPath(imgURL.path!)
+            {
+                do {
+                    try NSFileManager.defaultManager().removeItemAtURL(imgURL)
+                    self.photoURLs.removeObject(imgURL)
+                    self.collectionView?.reloadData()
+                    navigationController?.popViewControllerAnimated(true)
+                } catch (let error) {
+                    print("remove item error: \(error)")
+                }
+            }
+        }
+    }
 
     // MARK: UICollectionViewDataSource
 
@@ -94,7 +121,6 @@ class DownloadedPhotoCollectionViewController: UICollectionViewController
     
         // Configure the cell
         let imageURL = self.photoURLs.objectAtIndex(indexPath.row) as! NSURL
-        
         cell.imageView.image = UIImage(data: NSData(contentsOfURL: imageURL)! )
     
         return cell
@@ -105,34 +131,5 @@ class DownloadedPhotoCollectionViewController: UICollectionViewController
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier(Constant.DownloadedShowPhotoSegue, sender: (self.photoURLs.objectAtIndex(indexPath.row) as! NSURL))
     }
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
 
 }
