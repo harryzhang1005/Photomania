@@ -32,8 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIButton.appearance().tintColor = UIColor.whiteColor()
         
-        // Prepare to show full screen Ads
-        prepareForFullScreenAds()
+        prepareForFullScreenAds() // Prepare to show full screen Ads
         
         return true
     }
