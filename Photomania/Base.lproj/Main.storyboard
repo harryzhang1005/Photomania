@@ -235,10 +235,10 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2Dr-Oj-6gr">
                                             <rect key="frame" x="8" y="8" width="584" height="63"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" translatesAutoresizingMaskIntoConstraints="NO" id="DJm-ms-4Fi">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="252" verticalHuggingPriority="252" translatesAutoresizingMaskIntoConstraints="NO" id="DJm-ms-4Fi">
                                                     <rect key="frame" x="0.0" y="0.0" width="64" height="63"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="64" id="oJc-wY-2ap"/>
+                                                        <constraint firstAttribute="width" constant="64" id="zl2-IA-Tic"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dAL-oK-Q6e">
@@ -258,17 +258,17 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="DJm-ms-4Fi" firstAttribute="top" secondItem="2Dr-Oj-6gr" secondAttribute="top" id="XRr-NC-MGl"/>
-                                                <constraint firstAttribute="bottom" secondItem="DJm-ms-4Fi" secondAttribute="bottom" id="d7D-mK-gkX"/>
-                                                <constraint firstItem="DJm-ms-4Fi" firstAttribute="leading" secondItem="2Dr-Oj-6gr" secondAttribute="leading" id="lIw-bd-bbS"/>
+                                                <constraint firstItem="DJm-ms-4Fi" firstAttribute="leading" secondItem="2Dr-Oj-6gr" secondAttribute="leading" id="8y1-65-aL3"/>
+                                                <constraint firstItem="DJm-ms-4Fi" firstAttribute="top" secondItem="2Dr-Oj-6gr" secondAttribute="top" id="UZ1-If-siL"/>
+                                                <constraint firstAttribute="bottom" secondItem="DJm-ms-4Fi" secondAttribute="bottom" id="qkw-zW-Znm"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="2Dr-Oj-6gr" firstAttribute="leading" secondItem="4TA-Jo-xzN" secondAttribute="leadingMargin" id="9eV-SR-8ff"/>
-                                        <constraint firstItem="2Dr-Oj-6gr" firstAttribute="bottom" secondItem="4TA-Jo-xzN" secondAttribute="bottomMargin" id="Byq-wv-Vo5"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="2Dr-Oj-6gr" secondAttribute="trailing" id="aJQ-V8-C7H"/>
-                                        <constraint firstItem="2Dr-Oj-6gr" firstAttribute="top" secondItem="4TA-Jo-xzN" secondAttribute="topMargin" id="rLr-QD-fQ8"/>
+                                        <constraint firstItem="2Dr-Oj-6gr" firstAttribute="top" secondItem="4TA-Jo-xzN" secondAttribute="topMargin" id="NAS-Ty-Ppf"/>
+                                        <constraint firstItem="2Dr-Oj-6gr" firstAttribute="leading" secondItem="4TA-Jo-xzN" secondAttribute="leadingMargin" id="mqh-Lg-v7V"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="2Dr-Oj-6gr" secondAttribute="bottom" id="qhe-VT-rIb"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="2Dr-Oj-6gr" secondAttribute="trailing" id="xyS-kc-iTN"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

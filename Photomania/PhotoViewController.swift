@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 import Alamofire
 import iAd
 
@@ -30,7 +31,7 @@ class PhotoViewController: UIViewController
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.interstitialPresentationPolicy = .Automatic // ADInterstitialPresentationPolicy, and `None` by default
+        self.interstitialPresentationPolicy = .Automatic // ADInterstitialPresentationPolicy, and `None` by default, .Automatic, .Manual
         
         setupView()
         loadPhoto()
@@ -230,9 +231,13 @@ class PhotoViewController: UIViewController
         let downloadPhoto = UIAlertAction(title: "Download Photo", style: .Default) { (_) -> Void in
             weakSelf?.downloadPhoto()   // download photo
         }
+        let savePhotoToAlbum = UIAlertAction(title: "Save Photo To Album", style: .Default) { (_) -> Void in
+            weakSelf?.savePhotoToAlbum()     // save the photo to Album
+        }
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
         alertController.addAction(downloadPhoto)
+        alertController.addAction(savePhotoToAlbum)
         alertController.addAction(cancel)
         
         if let ppc = alertController.popoverPresentationController
@@ -277,7 +282,43 @@ class PhotoViewController: UIViewController
         }//responseObject
     }
     
+    func savePhotoToAlbum()
+    {
+        Alamofire.request(Five100px.Router.SpecialPhoto(self.photoInfo!.id, .XLarge)).responseObject { (response:Response<PhotoInfo, NSError>) -> Void in
+            if response.result.error == nil
+            {
+                let imageURL = (response.result.value)!.url
+                
+                // new way - download with progress view
+                let progressView = UIProgressView(frame: CGRect(x: 0, y: 80, width: self.view.bounds.width, height: 10.0))
+                progressView.tintColor = UIColor.blueColor()
+                self.view.addSubview(progressView)
+                
+                Alamofire.request(.GET, imageURL).responseImage({ (resp:Response<UIImage, NSError>) -> Void in
+                    if resp.result.error == nil {
+                        UIImageWriteToSavedPhotosAlbum(resp.result.value!, self, Selector("imageSaved:didFinishSavingWithError:context:"), nil)
+                    }
+                }).progress({ (_, totalBytesRead, totalBytesExpectedToRead) -> Void in
+                    dispatch_async(dispatch_get_main_queue()) {
+                        progressView.setProgress(Float(totalBytesRead)/Float(totalBytesExpectedToRead), animated: true)
+                        if totalBytesRead == totalBytesExpectedToRead {
+                            progressView.removeFromSuperview()
+                        }
+                    }
+                })
+            }
+        }//responseObject
+    }
     
+    // - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+    func imageSaved(image: UIImage, didFinishSavingWithError error: NSError?, context: UnsafeMutablePointer<()>)
+    {
+        if let theError = error {
+            print("An error happened while saving the image = \(theError)")
+        } else {
+            print("Image was saved successfully")
+        }
+    }
     
     func togglePhotoZoom(tap: UITapGestureRecognizer)
     {
@@ -364,11 +405,11 @@ class PhotoViewController: UIViewController
     
     func showFullScreenAds()
     {
-        canShowInterstitialAd = self.requestInterstitialAdPresentation()
+        canShowInterstitialAd = self.requestInterstitialAdPresentation()    // manually request show full-screen Ad
         if canShowInterstitialAd { // where user close the Ad, will invoke viewDidAppear
-            print("Can show full-screen Ads right now")
+            //print("Can show full-screen Ads right now")
         } else {
-            print("Can not show full-screen Ads right now")
+            //print("Can not show full-screen Ads right now")
         }
     }
 
@@ -385,7 +426,7 @@ extension PhotoViewController: UIScrollViewDelegate
     }
 }
 
-// ?
+// Popover
 extension PhotoViewController: UIPopoverPresentationControllerDelegate
 {
 //    // not help to fix popover view background color for iPad
