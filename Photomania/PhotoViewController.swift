@@ -9,15 +9,12 @@
 import UIKit
 import MobileCoreServices
 import Alamofire
-import iAd
 
 // Will show the specified photo
 class PhotoViewController: UIViewController
 {
     var photoID: Int?       // What's the photo id, use to download the photo and detail info
     var imageURL: NSURL?    // use to store the local downloaded photo path
-    
-    private var canShowInterstitialAd = false   // can show full-screen Ads or not
     
     @IBOutlet weak var deletePhotoBarButtonItem: UIBarButtonItem!   // will unwind to delete a photo
     
@@ -31,8 +28,6 @@ class PhotoViewController: UIViewController
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.interstitialPresentationPolicy = .Automatic // ADInterstitialPresentationPolicy, and `None` by default, .Automatic, .Manual
-        
         setupView()
         loadPhoto()
     }
@@ -72,7 +67,7 @@ class PhotoViewController: UIViewController
         scrollView.addSubview(imageView)
         
         // Double tap gesture - to zoom in or out the photo
-        let doubleTap = UITapGestureRecognizer(target: self, action: "togglePhotoZoom:")
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(PhotoViewController.togglePhotoZoom(_:)))
         doubleTap.numberOfTapsRequired = 2
         doubleTap.numberOfTouchesRequired = 1
         scrollView.addGestureRecognizer(doubleTap)
@@ -113,8 +108,6 @@ class PhotoViewController: UIViewController
         
         if let imgURL = imageURL // image url come from downloaded collection vc
         {
-            showFullScreenAds()
-            
             // Show delete photo bar button item
             deletePhotoBarButtonItem.enabled = true
             deletePhotoBarButtonItem.title = "Delete Photo"
@@ -133,17 +126,17 @@ class PhotoViewController: UIViewController
     {
         var items = [UIBarButtonItem]()
         
-        let detailHamburger = barButtonItemWithImageNamed("hamburger", title: nil, action: "showPhotoDetail")
+        let detailHamburger = barButtonItemWithImageNamed("hamburger", title: nil, action: #selector(PhotoViewController.showPhotoDetail))
         items.append(detailHamburger)
         if photoInfo?.commentsCount > 0 {
-            let comment = barButtonItemWithImageNamed("bubble", title: "\(photoInfo?.commentsCount ?? 0)", action: "showComment")
+            let comment = barButtonItemWithImageNamed("bubble", title: "\(photoInfo?.commentsCount ?? 0)", action: #selector(PhotoViewController.showComment))
             items.append(comment)
         }
         
         let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         items.append(flexible)
         
-        let download = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showActions")
+        let download = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(PhotoViewController.showActions))
         items.append(download)
         items.append(flexible)
         
@@ -296,7 +289,7 @@ class PhotoViewController: UIViewController
                 
                 Alamofire.request(.GET, imageURL).responseImage({ (resp:Response<UIImage, NSError>) -> Void in
                     if resp.result.error == nil {
-                        UIImageWriteToSavedPhotosAlbum(resp.result.value!, self, Selector("imageSaved:didFinishSavingWithError:context:"), nil)
+                        UIImageWriteToSavedPhotosAlbum(resp.result.value!, self, #selector(PhotoViewController.imageSaved(_:didFinishSavingWithError:context:)), nil)
                     }
                 }).progress({ (_, totalBytesRead, totalBytesExpectedToRead) -> Void in
                     dispatch_async(dispatch_get_main_queue()) {
@@ -344,16 +337,6 @@ class PhotoViewController: UIViewController
         // This method zooms so that the content view becomes the area defined by rect, adjusting the zoomScale as necessary.
         self.scrollView.zoomToRect(rectToZoom, animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     // MARK: - Scroll view
     
@@ -399,18 +382,6 @@ class PhotoViewController: UIViewController
         self.scrollView.frame = CGRect(origin: CGPointZero, size: size)
         self.imageView.frame = self.centerFrameFromImage(self.imageView.image)
         centerScrollViewContents()
-    }
-    
-    // MARK: - Ads
-    
-    func showFullScreenAds()
-    {
-        canShowInterstitialAd = self.requestInterstitialAdPresentation()    // manually request show full-screen Ad
-        if canShowInterstitialAd { // where user close the Ad, will invoke viewDidAppear
-            //print("Can show full-screen Ads right now")
-        } else {
-            //print("Can not show full-screen Ads right now")
-        }
     }
 
 }

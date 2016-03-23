@@ -142,7 +142,7 @@ struct Five100px {
         case PhotoComments(Int, Int)        // param    :   photo id, comments page number
         
         var URLRequest: NSMutableURLRequest {
-            let (path, parameters): (String, [String: AnyObject]) = {
+            let (path, parameters): (String, [String : AnyObject]) = {
                 switch self {
                 case .PopularPhotos(let page):
                     let params = ["consumer_key": Router.ConsumerKey, "page": "\(page)", "feature": "popular", "rpp": "50", "include_store": "store_download", "include_states": "votes"]
@@ -160,6 +160,7 @@ struct Five100px {
             let urlRequest = NSURLRequest(URL: url.URLByAppendingPathComponent(path))
             let urlEncoding = Alamofire.ParameterEncoding.URL
             
+            // return A tuple containing the constructed request and the error that occurred during parameter encoding, if any.
             // func encode(URLRequest: URLRequestConvertible, parameters: [String : AnyObject]?) -> (NSMutableURLRequest, NSError?)
             return urlEncoding.encode(urlRequest, parameters: parameters).0
         }

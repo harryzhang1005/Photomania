@@ -24,11 +24,6 @@ class PhotoDetailViewController: UIViewController
         setupView()
         loadData()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -36,7 +31,7 @@ class PhotoDetailViewController: UIViewController
     
     func setupView()
     {
-        let tap = UITapGestureRecognizer(target: self, action: "dismiss")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailViewController.dismiss))
         tap.numberOfTapsRequired = 1
         tap.numberOfTouchesRequired = 1
         view.addGestureRecognizer(tap)

@@ -24,7 +24,6 @@
 		FAC72D6A1C21FA4200F4F054 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D691C21FA4200F4F054 /* Constants.swift */; };
 		FAC72D831C2200C600F4F054 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC72D761C22005000F4F054 /* Alamofire.framework */; };
 		FAC72D841C2200C600F4F054 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAC72D761C22005000F4F054 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FAF0B2BD1C24E5C000D4CA85 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF0B2BC1C24E5C000D4CA85 /* iAd.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,7 +118,6 @@
 		FAC72D671C21F9B600F4F054 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		FAC72D691C21FA4200F4F054 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-V313/Alamofire.xcodeproj"; sourceTree = "<group>"; };
-		FAF0B2BC1C24E5C000D4CA85 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +125,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAF0B2BD1C24E5C000D4CA85 /* iAd.framework in Frameworks */,
 				FAC72D831C2200C600F4F054 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,7 +135,6 @@
 		FAC72D2C1C21EE4700F4F054 = {
 			isa = PBXGroup;
 			children = (
-				FAF0B2BC1C24E5C000D4CA85 /* iAd.framework */,
 				FAC72D6B1C22004E00F4F054 /* Alamofire.xcodeproj */,
 				FAC72D371C21EE4700F4F054 /* Photomania */,
 				FAC72D361C21EE4700F4F054 /* Products */,
@@ -477,6 +473,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Photomania/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -489,6 +486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Photomania/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

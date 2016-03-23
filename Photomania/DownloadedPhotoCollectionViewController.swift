@@ -31,25 +31,49 @@ class DownloadedPhotoCollectionViewController: UICollectionViewController
     
     func setupView()
     {
-        let layout = UICollectionViewFlowLayout()
+        navigationItem.title = "Downloads"
         
-        // Keep 2 items per row
-        let itemWidth = (view.bounds.size.width - 8) / 2
-        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        setupFlowLayout()
+        
+        // Register cell classes
+        self.collectionView!.registerClass(DownloadedPhotoCollectionViewCell.classForCoder(),
+                                           forCellWithReuseIdentifier: Constant.DownloadedPhotoItem)
+    }
+    
+    private func setupFlowLayout() {
+        let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 8.0
         layout.minimumLineSpacing = 8.0
         
+        let itemsPerRow: CGFloat = 1 //isLandscape() ? 3 : 2
+        let itemWidth = (view.bounds.size.width - 8*(itemsPerRow - 1)) / itemsPerRow
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        
         collectionView?.collectionViewLayout = layout
-        
-        // Register cell classes
-        self.collectionView!.registerClass(DownloadedPhotoCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: Constant.DownloadedPhotoItem)
-        
-        navigationItem.title = "Downloads"
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         loadPhotos()
+    }
+    
+//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+//        
+//        coordinator.animateAlongsideTransition({ _ in
+//            self.setupFlowLayout()
+//        }) { _ in
+//            self.collectionView?.collectionViewLayout.invalidateLayout()
+//        }
+//    }
+    
+    private func isLandscape() -> Bool {
+        // Returns true if the interface orientation is landscape, otherwise returns false.
+        return UIInterfaceOrientationIsLandscape(UIApplication.sharedApplication().statusBarOrientation)
     }
     
     func loadPhotos()
@@ -61,7 +85,8 @@ class DownloadedPhotoCollectionViewController: UICollectionViewController
         let dirURL = dirURLs[0]
         
         // Step-2: iterate files in this directory
-        let urls = try? NSFileManager.defaultManager().contentsOfDirectoryAtURL(dirURL, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles)
+        let urls = try? NSFileManager.defaultManager().contentsOfDirectoryAtURL(dirURL, includingPropertiesForKeys: nil,
+                                                                                options: .SkipsHiddenFiles)
         
         if let imageURLs = urls {
             self.photoURLs.addObjectsFromArray(imageURLs)
@@ -105,13 +130,10 @@ class DownloadedPhotoCollectionViewController: UICollectionViewController
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return self.photoURLs.count
     }
 

@@ -25,20 +25,15 @@ class PhotoCommentsTableViewController: UITableViewController
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         // Auto row height
-        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         
-        let done = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done")
+        let done = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(PhotoCommentsTableViewController.done))
         self.navigationItem.rightBarButtonItem = done
         
         title = "Comments"
         
         loadComments()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func loadComments()
@@ -63,12 +58,10 @@ class PhotoCommentsTableViewController: UITableViewController
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return photoComments.count
     }
 

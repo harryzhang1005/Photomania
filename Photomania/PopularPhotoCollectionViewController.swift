@@ -41,27 +41,36 @@ class PopularPhotoCollectionViewController: UICollectionViewController
     func setupView()
     {
         navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.title = "Featured"
         
+        setupFlowLayout()
+        
+        collectionView?.registerClass(PopularPhotoCollectionViewCell.classForCoder(),
+                                      forCellWithReuseIdentifier: Constant.PopularPhotoItem)
+        
+        collectionView?.registerClass(PopularPhotoCollectionViewLoadingCell.classForCoder(),
+                                      forSupplementaryViewOfKind: UICollectionElementKindSectionFooter,
+                                      withReuseIdentifier: Constant.PhotoBrowserFooterView)
+        
+        refreshControl.tintColor = UIColor.whiteColor()
+        refreshControl.addTarget(self, action: #selector(PopularPhotoCollectionViewController.handleRefresh),
+                                 forControlEvents: .ValueChanged)
+        collectionView?.addSubview(refreshControl)
+    }
+    
+    private func setupFlowLayout() {
         // custom flow layout
         let layout = UICollectionViewFlowLayout()
-        
-        // Keep 3 items per row
-        let itemWidth = (view.bounds.size.width - 16) / 3
-        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         layout.minimumInteritemSpacing = 8.0
         layout.minimumLineSpacing = 8.0
         
+        let itemsPerRow: CGFloat = isLandscape() ? 4 : 3
+        let itemWidth = (view.bounds.size.width - 8*(itemsPerRow - 1)) / itemsPerRow
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        
+        // The default sizes to use for section footers.
         layout.footerReferenceSize = CGSize(width: collectionView!.bounds.width, height: 100.0)
         self.collectionView?.collectionViewLayout = layout
-        
-        navigationItem.title = "Featured"
-        
-        collectionView?.registerClass(PopularPhotoCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: Constant.PopularPhotoItem)
-        collectionView?.registerClass(PopularPhotoCollectionViewLoadingCell.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: Constant.PhotoBrowserFooterView)
-        
-        refreshControl.tintColor = UIColor.whiteColor()
-        refreshControl.addTarget(self, action: "handleRefresh", forControlEvents: .ValueChanged)
-        collectionView?.addSubview(refreshControl)
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,6 +78,16 @@ class PopularPhotoCollectionViewController: UICollectionViewController
         // Dispose of any resources that can be recreated.
         
         self.imageCache.removeAllObjects()
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        coordinator.animateAlongsideTransition({ _ in
+            self.setupFlowLayout()
+            }) { _ in
+                self.collectionView?.collectionViewLayout.invalidateLayout()
+        }
     }
     
     func loadPhotos()
@@ -96,11 +115,16 @@ class PopularPhotoCollectionViewController: UICollectionViewController
                         self.collectionView?.insertItemsAtIndexPaths(indexPaths)    // better performance than above line
                     }
                     
-                    self.currentPage++
+                    self.currentPage += 1
                 }
             }//JSON
             self.isLoadingPhotos = false
         }//request
+    }
+    
+    private func isLandscape() -> Bool {
+        // Returns true if the interface orientation is landscape, otherwise returns false.
+        return UIInterfaceOrientationIsLandscape(UIApplication.sharedApplication().statusBarOrientation)
     }
 
     // MARK: - Navigation
@@ -121,12 +145,10 @@ class PopularPhotoCollectionViewController: UICollectionViewController
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return self.photos.count
     }
 

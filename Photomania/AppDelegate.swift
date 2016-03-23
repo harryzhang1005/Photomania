@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import iAd
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,14 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIButton.appearance().tintColor = UIColor.whiteColor()
         
-        prepareForFullScreenAds() // Prepare to show full screen Ads
-        
         return true
     }
-
-    func prepareForFullScreenAds()
-    {
-        UIViewController.prepareInterstitialAds()
-    }
-
+    
 }

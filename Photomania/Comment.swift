@@ -40,8 +40,8 @@ final class Comment: NSObject, ResponseObjectSerializable, ResponseCollectionSer
         
         if let values = representation.valueForKeyPath("comments") as? [NSDictionary]
         {
-            for v in values {
-                if let comment = Comment(response: response, representation: v) {
+            for value in values {
+                if let comment = Comment(response: response, representation: value) {
                     comments.append(comment)
                 }
             }
