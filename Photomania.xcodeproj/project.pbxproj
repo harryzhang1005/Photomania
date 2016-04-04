@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA000EBD1CA2F3DC00B08E49 /* iPad-Downloads.png in Resources */ = {isa = PBXBuildFile; fileRef = FA000EB91CA2F3DC00B08E49 /* iPad-Downloads.png */; };
-		FA000EBE1CA2F3DC00B08E49 /* iPad-Featured.png in Resources */ = {isa = PBXBuildFile; fileRef = FA000EBA1CA2F3DC00B08E49 /* iPad-Featured.png */; };
-		FA000EBF1CA2F3DC00B08E49 /* iPhone-Downloads.png in Resources */ = {isa = PBXBuildFile; fileRef = FA000EBB1CA2F3DC00B08E49 /* iPhone-Downloads.png */; };
-		FA000EC01CA2F3DC00B08E49 /* iPhone-Featured.png in Resources */ = {isa = PBXBuildFile; fileRef = FA000EBC1CA2F3DC00B08E49 /* iPhone-Featured.png */; };
 		FAC72D391C21EE4700F4F054 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC72D381C21EE4700F4F054 /* AppDelegate.swift */; };
 		FAC72D401C21EE4700F4F054 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC72D3E1C21EE4700F4F054 /* Main.storyboard */; };
 		FAC72D421C21EE4700F4F054 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAC72D411C21EE4700F4F054 /* Assets.xcassets */; };
@@ -104,10 +100,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FA000EB91CA2F3DC00B08E49 /* iPad-Downloads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad-Downloads.png"; sourceTree = "<group>"; };
-		FA000EBA1CA2F3DC00B08E49 /* iPad-Featured.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad-Featured.png"; sourceTree = "<group>"; };
-		FA000EBB1CA2F3DC00B08E49 /* iPhone-Downloads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone-Downloads.png"; sourceTree = "<group>"; };
-		FA000EBC1CA2F3DC00B08E49 /* iPhone-Featured.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone-Featured.png"; sourceTree = "<group>"; };
 		FAC72D351C21EE4700F4F054 /* Photomania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photomania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC72D381C21EE4700F4F054 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAC72D3F1C21EE4700F4F054 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -140,17 +132,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FA000EB81CA2F3DC00B08E49 /* Screenshots */ = {
-			isa = PBXGroup;
-			children = (
-				FA000EB91CA2F3DC00B08E49 /* iPad-Downloads.png */,
-				FA000EBA1CA2F3DC00B08E49 /* iPad-Featured.png */,
-				FA000EBB1CA2F3DC00B08E49 /* iPhone-Downloads.png */,
-				FA000EBC1CA2F3DC00B08E49 /* iPhone-Featured.png */,
-			);
-			path = Screenshots;
-			sourceTree = "<group>";
-		};
 		FAC72D2C1C21EE4700F4F054 = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +152,6 @@
 		FAC72D371C21EE4700F4F054 /* Photomania */ = {
 			isa = PBXGroup;
 			children = (
-				FA000EB81CA2F3DC00B08E49 /* Screenshots */,
 				FAC72D541C21F6E300F4F054 /* Controllers */,
 				FAC72D531C21F6DE00F4F054 /* Views */,
 				FAC72D521C21F6D600F4F054 /* Models */,
@@ -348,13 +328,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA000EBE1CA2F3DC00B08E49 /* iPad-Featured.png in Resources */,
 				FAC72D451C21EE4800F4F054 /* LaunchScreen.storyboard in Resources */,
-				FA000EBF1CA2F3DC00B08E49 /* iPhone-Downloads.png in Resources */,
 				FAC72D421C21EE4700F4F054 /* Assets.xcassets in Resources */,
 				FAC72D401C21EE4700F4F054 /* Main.storyboard in Resources */,
-				FA000EBD1CA2F3DC00B08E49 /* iPad-Downloads.png in Resources */,
-				FA000EC01CA2F3DC00B08E49 /* iPhone-Featured.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
